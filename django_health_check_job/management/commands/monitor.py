@@ -49,9 +49,9 @@ class Command(BaseCommand, HealthCheck):
             )
 
         payload = {
-            "id": str(uuid.uuid4()),
+            "uuid": str(uuid.uuid4()),
             "timestamp": datetime.utcnow(),
-            "data": plugin_data,
+            "checks": plugin_data,
         }
 
         process_payload(payload)
