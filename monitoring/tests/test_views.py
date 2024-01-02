@@ -1,3 +1,5 @@
+import uuid
+from datetime import datetime, timedelta
 from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework import status
@@ -9,9 +11,29 @@ class TestHealthCheckView(TestCase):
         self.client = APIClient()
         self.sync_app_id = "0171d964-1b85-4fb8-9ef3-3fef891d92dc"
 
-        Service.objects.create(name="test_health_check", identifier=self.sync_app_id)
+        service = Service.objects.create(
+            name="test_health_check", identifier=self.sync_app_id
+        )
 
-    def test_create_health_check_jobs_should_return_status_ok(self):
+        health_check = HeathCheck.objects.create(
+            uuid=str(uuid.uuid4()),
+            timestamp="2023-12-31 13:57:48.120127",
+            source="localhost",
+            service=service,
+        )
+
+        HeathCheckPlugin.objects.create(
+            name="DbHealthCheck", status=1, message="working", health_check=health_check
+        )
+
+        HeathCheckPlugin.objects.create(
+            name="CeleryHealthCheck",
+            status=0,
+            message="failing",
+            health_check=health_check,
+        )
+
+    def test_create_health_check_jobs_should_return_status_created(self):
         url = "/v1/healthcheckjobs/"
         uuid = "5b943126-60c6-4c8a-9139-9ec161925ed6"
 
@@ -74,3 +96,22 @@ class TestHealthCheckView(TestCase):
         response = self.client.post(url, payload, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_get_health_check_jobs_should_return_status_ok(self):
+        start_date = datetime.utcnow() + timedelta(days=-1)
+        end_date = datetime.utcnow()  + timedelta(days=1)
+
+        url = f"/v1/healthcheckjobs/?start_date={str(start_date.strftime('%Y-%m-%d'))}&end_date={str(end_date.strftime('%Y-%m-%d'))}"
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        result = response.json()
+
+        self.assertListEqual(
+            result.get("data"),
+            [
+                {"name": "CeleryHealthCheck", "status": 0, "count": 1},
+                {"name": "DbHealthCheck", "status": 1, "count": 1},
+            ],
+        )
