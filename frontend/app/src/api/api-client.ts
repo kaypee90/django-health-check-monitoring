@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 
-const baseUrl = process.env.API_BASE_URL || ""
+const baseUrl = process.env.API_BASE_URL ?? "http://localhost:8000/v1"
 
 export const instance = axios.create({
     baseURL: baseUrl
