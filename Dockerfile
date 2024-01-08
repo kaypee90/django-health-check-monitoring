@@ -15,4 +15,3 @@ COPY . /code/
 RUN useradd -m -d /code -s /bin/bash -u 1001 -U app
 RUN chown -R app:app /code 
 USER 1001
-
