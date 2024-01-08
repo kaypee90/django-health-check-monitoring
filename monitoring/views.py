@@ -2,10 +2,25 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from django.http import HttpResponse
+from rest_framework.decorators import api_view
+
 from monitoring.serializers import HealthCheckJobSerializer
 from monitoring.models import HeathCheckPlugin
 from django.db.models import Count
 from datetime import datetime
+
+
+@api_view(
+    [
+        "GET",
+    ]
+)
+def health_check(_):
+    """
+    Health check endpoint, always returns 200 status code
+    """
+    return HttpResponse(status=200)
 
 
 class HealthCheckJobView(APIView):
@@ -37,7 +52,9 @@ class HealthCheckJobView(APIView):
             try:
                 start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
                 end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
-                queryset = queryset.filter(created_at__gte=start_date, created_at__lte=end_date)
+                queryset = queryset.filter(
+                    created_at__gte=start_date, created_at__lte=end_date
+                )
             except ValueError:
                 return Response(
                     {"error": "Invalid date format. Use YYYY-MM-DD."},

@@ -40,17 +40,18 @@ class Command(BaseCommand, HealthCheck):
                 )
             )
 
+            message = plugin.pretty_status()
             plugin_data.append(
                 {
                     "name": plugin_identifier,
-                    "message": plugin.pretty_status(),
+                    "message": str(message),
                     "status": plugin.status,
                 }
             )
 
         payload = {
             "uuid": str(uuid.uuid4()),
-            "timestamp": datetime.utcnow(),
+            "timestamp": datetime.utcnow().isoformat(),
             "checks": plugin_data,
         }
 

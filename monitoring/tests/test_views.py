@@ -99,7 +99,7 @@ class TestHealthCheckView(TestCase):
 
     def test_get_health_check_jobs_should_return_status_ok(self):
         start_date = datetime.utcnow() + timedelta(days=-1)
-        end_date = datetime.utcnow()  + timedelta(days=1)
+        end_date = datetime.utcnow() + timedelta(days=1)
 
         url = f"/v1/healthcheckjobs/?start_date={str(start_date.strftime('%Y-%m-%d'))}&end_date={str(end_date.strftime('%Y-%m-%d'))}"
         response = self.client.get(url)
