@@ -1,5 +1,7 @@
 from .base import *
 
+SECRET_KEY = "test_secret_key"
+
 OTHER_APPS = [
     "health_check.contrib.psutil",
 ]
