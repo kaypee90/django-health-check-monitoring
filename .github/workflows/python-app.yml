@@ -12,6 +12,9 @@ on:
 permissions:
   contents: read
 
+env:
+  DEV_ENV: 1
+
 jobs:
   build:
 
