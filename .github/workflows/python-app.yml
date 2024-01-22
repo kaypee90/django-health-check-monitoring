@@ -14,6 +14,7 @@ permissions:
 
 env:
   DEV_ENV: 1
+  DJANGO_SETTINGS_MODULE: config.settings
 
 jobs:
   build:
