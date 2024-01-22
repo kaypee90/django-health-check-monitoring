@@ -16,6 +16,7 @@ env:
   DEV_ENV: 1
   DJANGO_SETTINGS_MODULE: config.settings
   DJ_DEBUG: true
+  SECRET_KEY: test_secret
 
 jobs:
   build:
@@ -36,6 +37,6 @@ jobs:
     - name: Lint with ruff
       run: |
         ruff check .
-    - name: Test with pytest
+    - name: Run test cases
       run: |
         python manage.py test
