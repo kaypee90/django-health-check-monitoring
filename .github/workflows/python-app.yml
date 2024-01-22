@@ -15,6 +15,7 @@ permissions:
 env:
   DEV_ENV: 1
   DJANGO_SETTINGS_MODULE: config.settings
+  DJ_DEBUG: true
 
 jobs:
   build:
@@ -37,4 +38,4 @@ jobs:
         ruff check .
     - name: Test with pytest
       run: |
-        ls && pip freeze && pytest
+        python manage.py test
