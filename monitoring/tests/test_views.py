@@ -101,7 +101,12 @@ class TestHealthCheckView(TestCase):
         start_date = datetime.utcnow() + timedelta(days=-1)
         end_date = datetime.utcnow() + timedelta(days=1)
 
-        url = f"/v1/healthcheckjobs/?start_date={str(start_date.strftime('%Y-%m-%d'))}&end_date={str(end_date.strftime('%Y-%m-%d'))}"
+        start_date_str = str(start_date.strftime("%Y-%m-%d"))
+        end_date_str = str(end_date.strftime("%Y-%m-%d"))
+
+        url = (
+            f"/v1/healthcheckjobs/?start_date={start_date_str}&end_date={end_date_str}"
+        )
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
