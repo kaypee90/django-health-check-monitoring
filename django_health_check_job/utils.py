@@ -59,7 +59,7 @@ def sync_health_check_data_to_monitoring_server(payload):
     import requests
 
     response = requests.post(
-        url=server_url + "/v1/healthcheckjobs/",
+        url=server_url + "/v1/metrics",
         json=payload,
         timeout=5,
     )
