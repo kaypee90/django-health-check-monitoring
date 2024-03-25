@@ -1,0 +1,9 @@
+version: 2
+updates:
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "kaypee90"
+    open-pull-requests-limit: 12
