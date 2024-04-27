@@ -1,8 +1,10 @@
-# Django Health Check Monitoring
+Django Health Check Monitoring
+==============================
 
 Django Health Check Monitoring is a Python library designed to enhance monitoring capabilities in Django applications. It captures data emitted by Django Health Check and pushes it to backend services for visualization.
 
-## Features
+Features
+--------
 
 - **Enhanced Monitoring**: Django Health Check Monitoring provides additional monitoring capabilities for Django applications by capturing and analyzing health check data.
 
@@ -10,11 +12,12 @@ Django Health Check Monitoring is a Python library designed to enhance monitorin
 
 - **Backend Services Integration**: Pushes captured health check data to backend services for visualization and analysis, enabling you to monitor the health of your Django application in real-time.
 
+Contributing
+------------
 
-## Contributing
+Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests on `GitHub <https://github.com/example/django-health-check-monitoring>`_.
 
-Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests on [GitHub](https://github.com/example/django-health-check-monitoring).
+License
+-------
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the :doc:`LICENSE` file for details.
