@@ -1,2 +1,2 @@
-django-health-check==3.18.1
+django-health-check==3.18.2
 schedule==1.2.1
