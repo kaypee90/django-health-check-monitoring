@@ -1,6 +1,6 @@
 -r requirements.txt
 psutil==5.9.8
-coverage==7.4.4
+coverage==7.5.2
 Django==5.0.4
 requests==2.32.1
 django-cors-headers==4.3.1
