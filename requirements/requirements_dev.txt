@@ -2,5 +2,5 @@
 psutil==5.9.8
 coverage==7.5.3
 Django==5.0.6
-requests==2.32.2
+requests==2.32.3
 django-cors-headers==4.3.1
