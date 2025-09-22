@@ -1,5 +1,5 @@
 -r requirements.txt
-psutil==7.0.0
+psutil==7.1.0
 coverage==7.10.6
 Django==5.1.7
 requests==2.32.5
