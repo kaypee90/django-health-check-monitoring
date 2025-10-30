@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # Main Django application
+  web:
+    build: .
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  # Django Health Check Monitor (runs continuously)
+  health-monitor:
+    build: .
+    command: python manage.py monitor
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    environment:
+      # Override settings for monitoring
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+      - PERSIST_HEALTH_CHECK_DATA=false
+      - SYNC_HEALTH_CHECK_DATA=true
+      - SYNC_SERVER_URL=https://monitoring.example.com
+      - SYNC_APP_ID=myapp-docker
+      - HEALTH_CHECK_INTERVAL=300
+    depends_on:
+      - web
+      - db
+      - redis
+    restart: unless-stopped
+
+  # PostgreSQL database
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=django_db
+      - POSTGRES_USER=django_user
+      - POSTGRES_PASSWORD=secure_password
+    restart: unless-stopped
+
+  # Redis for caching
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
