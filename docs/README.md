@@ -6,19 +6,21 @@ Welcome to the Django Health Check Monitoring documentation!
 
 ### Getting Started
 
-1. **[Installation Guide](installation.md)** - Install and set up Django Health Check Monitoring
+1. **[Quick Start Guide](quickstart.md)** ⚡ - Get up and running in 5 minutes!
+
+2. **[Installation Guide](installation.md)** - Install and set up Django Health Check Monitoring
    - Requirements
    - Installation methods (pip, from source)
    - Django setup and configuration
    - Running migrations
 
-2. **[Configuration](configuration.md)** - Configure health check monitoring
+3. **[Configuration](configuration.md)** - Configure health check monitoring
    - All available settings explained
    - Configuration examples for different environments
    - Health check plugin configuration
    - Monitoring server API specification
 
-3. **[Usage Guide](usage.md)** - Learn how to use Django Health Check Monitoring
+4. **[Usage Guide](usage.md)** - Learn how to use Django Health Check Monitoring
    - Running the monitor command
    - Running as a background service (systemd, supervisor, Docker)
    - Viewing health check data
@@ -28,7 +30,7 @@ Welcome to the Django Health Check Monitoring documentation!
 
 ### Reference
 
-4. **[API Reference](api-reference.md)** - Complete API documentation
+5. **[API Reference](api-reference.md)** - Complete API documentation
    - Models (HeathCheckJob)
    - Management commands (monitor)
    - Utility functions

@@ -103,6 +103,7 @@ Documentation
 
 For comprehensive documentation, see the ``docs/`` directory:
 
+- `Quick Start Guide <docs/quickstart.md>`_ ⚡ - Get up and running in 5 minutes!
 - `Installation Guide <docs/installation.md>`_ - Detailed installation instructions
 - `Configuration <docs/configuration.md>`_ - All configuration options and examples
 - `Usage Guide <docs/usage.md>`_ - How to use the monitor command and integrate with other systems
