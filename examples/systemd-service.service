@@ -1,0 +1,54 @@
+# Django Health Check Monitor Systemd Service
+# 
+# Installation:
+# 1. Copy this file to /etc/systemd/system/django-health-monitor.service
+# 2. Update paths and settings to match your environment
+# 3. Run: sudo systemctl daemon-reload
+# 4. Run: sudo systemctl enable django-health-monitor
+# 5. Run: sudo systemctl start django-health-monitor
+#
+# Monitoring:
+# - Check status: sudo systemctl status django-health-monitor
+# - View logs: sudo journalctl -u django-health-monitor -f
+# - Restart: sudo systemctl restart django-health-monitor
+
+[Unit]
+Description=Django Health Check Monitor
+After=network.target postgresql.service redis.service
+Wants=postgresql.service redis.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/myapp
+
+# Set environment variables
+Environment="DJANGO_SETTINGS_MODULE=config.settings.production"
+Environment="PERSIST_HEALTH_CHECK_DATA=false"
+Environment="SYNC_HEALTH_CHECK_DATA=true"
+Environment="SYNC_SERVER_URL=https://monitoring.example.com"
+Environment="SYNC_APP_ID=myapp-production"
+Environment="HEALTH_CHECK_INTERVAL=300"
+
+# Path to your virtual environment and manage.py
+ExecStart=/var/www/myapp/venv/bin/python manage.py monitor
+
+# Restart on failure
+Restart=always
+RestartSec=10
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=django-health-monitor
+
+# Security settings (optional but recommended)
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/myapp
+
+[Install]
+WantedBy=multi-user.target
